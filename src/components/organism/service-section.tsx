@@ -2,20 +2,12 @@ import ServiceRepository from '@/src/repositories/service-repository';
 import ServiceItem from '../molecules/service-item';
 import { useEffect, useState } from 'react';
 import ServiceModel from '@/src/models/service-model';
+import { useRecoilValue } from 'recoil';
+import { servicesDataState } from '@/src/recoils/service-atom';
 
 const ServiceSection = () => {
-  // state
-  const [services, setServices] = useState<ServiceModel[] | undefined>();
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const serviceRepository = new ServiceRepository();
-      const data = await serviceRepository.getServices();
-      setServices(data?.data || []);
-    };
-
-    const data = fetchData();
-  }, []);
+  // recoil state
+  const services = useRecoilValue<ServiceModel[]>(servicesDataState);
 
   return (
     <section id='service'>
@@ -35,7 +27,7 @@ const ServiceSection = () => {
             {/* Service Item */}
             <div className='grid grid-cols-1 lg:grid-cols-2 gap-10 mt-14 mb-5'>
               {services?.map((item) => (
-                <ServiceItem key={item.id} title={item.name} description={item.description} />
+                <ServiceItem key={item.id} item={item} />
               ))}
               {/* <ServiceItem
                 title='Web Development'

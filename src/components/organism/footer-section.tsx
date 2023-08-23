@@ -1,6 +1,11 @@
+import { useRecoilValue } from 'recoil';
 import NavItem from '../molecules/nav-item';
+import SettingModel from '@/src/models/setting-model';
+import { settingsDataState } from '@/src/recoils/setting-atom';
 
 const FooterSection = () => {
+  const settings = useRecoilValue<SettingModel>(settingsDataState);
+
   return (
     <section id='footer'>
       <div className='container container-fit p-6 overflow-hidden'>
@@ -11,9 +16,8 @@ const FooterSection = () => {
               <div className='md:space-y-4'>
                 <h2 className='text-[#292B41] font-bold text-base md:text-lg'>About CodeCrafters</h2>
                 <p className='text-[#887DAB] text-sm leading-6'>
-                  CodeCrafters adalah Software House, lahir untuk mengubah ide menjadi aplikasi berkualitas, dan
-                  memanfaatkan kode untuk perubahan positif. Bersama-sama, mari ciptakan masa depan yang lebih baik
-                  melalui seni kode.
+                  {settings.site_description ??
+                    'CodeCrafters adalah Software House, lahir untuk mengubah ide menjadi aplikasi berkualitas, dan memanfaatkan kode untuk perubahan positif. Bersama-sama, mari ciptakan masa depan yang lebih baik melalui seni kode.'}
                 </p>
               </div>
 
@@ -25,7 +29,7 @@ const FooterSection = () => {
                 </p>
 
                 <p className='gradient text-transparent bg-clip-text font-semibold text-sm leading-6'>
-                  sales@codecrafters.id
+                  {settings.site_email ?? 'sales@codecrafters.id'}
                 </p>
               </div>
 
@@ -34,17 +38,8 @@ const FooterSection = () => {
                 <h2 className='text-[#292B41] font-bold text-base md:text-lg'>Pages</h2>
                 <div className='flex flex-col space-y-1'>
                   <NavItem url='/' title='Home' />
-                  <NavItem url='/services' title='Services' />
+                  <NavItem url='#service' title='Services' />
                   <NavItem url='/blogs' title='Blogs' />
-                  {/* <a href='#' className='gradient bg-clip-text text-transparent font-semibold text-sm'>
-                    Home
-                  </a>
-                  <a href='#' className='gradient bg-clip-text text-transparent font-semibold text-sm'>
-                    Services
-                  </a>
-                  <a href='#' className='gradient bg-clip-text text-transparent font-semibold text-sm'>
-                    Blogs
-                  </a> */}
                 </div>
               </div>
             </div>

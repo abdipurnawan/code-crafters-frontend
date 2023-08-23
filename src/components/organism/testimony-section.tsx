@@ -2,6 +2,9 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import TestimonyItem from '../molecules/testimony-item';
+import { useRecoilValue } from 'recoil';
+import TestimonyModel from '@/src/models/testimony-model';
+import { testimoniesDataState } from '@/src/recoils/testimony-atom';
 
 const TestimonySection = () => {
   const settings = {
@@ -38,58 +41,7 @@ const TestimonySection = () => {
     ]
   };
 
-  const testimonies = [
-    {
-      name: 'Anang',
-      testimony:
-        'Lorem ipsum dolor sit amet consectetur. Pellentesque commodo augue tempor massa vitae consectetur mi. Eu tortor at turpis eu.'
-    },
-    {
-      name: 'Anang',
-      testimony:
-        'Lorem ipsum dolor sit amet consectetur. Pellentesque commodo augue tempor massa vitae consectetur mi. Eu tortor at turpis eu.'
-    },
-    {
-      name: 'Anang',
-      testimony:
-        'Lorem ipsum dolor sit amet consectetur. Pellentesque commodo augue tempor massa vitae consectetur mi. Eu tortor at turpis eu.'
-    },
-    {
-      name: 'Anang',
-      testimony:
-        'Lorem ipsum dolor sit amet consectetur. Pellentesque commodo augue tempor massa vitae consectetur mi. Eu tortor at turpis eu.'
-    },
-    {
-      name: 'Anang',
-      testimony:
-        'Lorem ipsum dolor sit amet consectetur. Pellentesque commodo augue tempor massa vitae consectetur mi. Eu tortor at turpis eu.'
-    },
-    {
-      name: 'Anang',
-      testimony:
-        'Lorem ipsum dolor sit amet consectetur. Pellentesque commodo augue tempor massa vitae consectetur mi. Eu tortor at turpis eu.'
-    },
-    {
-      name: 'Anang',
-      testimony:
-        'Lorem ipsum dolor sit amet consectetur. Pellentesque commodo augue tempor massa vitae consectetur mi. Eu tortor at turpis eu.'
-    },
-    {
-      name: 'Anang',
-      testimony:
-        'Lorem ipsum dolor sit amet consectetur. Pellentesque commodo augue tempor massa vitae consectetur mi. Eu tortor at turpis eu.'
-    },
-    {
-      name: 'Anang',
-      testimony:
-        'Lorem ipsum dolor sit amet consectetur. Pellentesque commodo augue tempor massa vitae consectetur mi. Eu tortor at turpis eu.'
-    },
-    {
-      name: 'Anang',
-      testimony:
-        'Lorem ipsum dolor sit amet consectetur. Pellentesque commodo augue tempor massa vitae consectetur mi. Eu tortor at turpis eu.'
-    }
-  ];
+  const testimonies = useRecoilValue<TestimonyModel[]>(testimoniesDataState);
 
   return (
     <section id='slick-testimony'>
@@ -101,8 +53,8 @@ const TestimonySection = () => {
             </h1>
 
             <Slider {...settings}>
-              {testimonies.map((tesimony, index) => (
-                <TestimonyItem key={index} name={tesimony.name} testimony={tesimony.testimony} />
+              {testimonies.map((item) => (
+                <TestimonyItem key={item.id} item={item} />
               ))}
             </Slider>
           </div>

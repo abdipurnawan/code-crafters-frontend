@@ -4,7 +4,7 @@ const BlogMainSection = () => {
   return (
     <div className='container container-fit p-6'>
       {/* Single Blog */}
-      <div className='flex flex-col-reverse md:flex-row md:space-x-10'>
+      <div className='flex flex-col-reverse md:items-end md:flex-row md:space-x-10'>
         {/* Title and Desc */}
         <div className='mt-4 space-y-2 md:mt-0 md:space-y-5'>
           <h1 className='font-bold text-2xl md:text-3xl lg:text-4xl leading-normal'>
