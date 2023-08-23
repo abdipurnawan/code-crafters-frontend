@@ -1,10 +1,10 @@
-import HomePage from '@/src/components/pages/home-page';
+import BlogPage from '@/src/components/pages/blog-page';
 import MainTemplate from '@/src/components/templates/main-template';
 
-export default function Home() {
+export default function Blog() {
   return (
     <MainTemplate>
-      <HomePage />
+      <BlogPage />
     </MainTemplate>
   );
 }
