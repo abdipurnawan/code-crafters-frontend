@@ -21,7 +21,7 @@ const BlogItem = (props: BlogItemProps) => {
   };
 
   return (
-    <Link href={`/blogs/${blog.id}`} className='cursor-pointer'>
+    <Link href={`/blogs/${blog.slug}`} className='cursor-pointer'>
       <div className='relative w-full pb-[56.25%]'>
         <Image
           loader={myLoader}
