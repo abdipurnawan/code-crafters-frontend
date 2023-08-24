@@ -2,54 +2,14 @@ import { useState } from 'react';
 import BlogItem from '../molecules/blog-item';
 import FilterItem from '../molecules/filter-item';
 import { Pagination } from '../molecules/pagination';
+import { useRecoilValue } from 'recoil';
+import { tagsDataState } from '@/src/recoils/tag-atom';
+import { blogListDataState } from '@/src/recoils/blog-list-atom';
 
 const BlogListSection = () => {
-  const [activeFilter, setActiveFilter] = useState('all');
-
-  const blogList = [
-    {
-      id: 'uuid1',
-      title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.',
-      date: 'Mei 08, 2023'
-    },
-    {
-      id: 'uuid2',
-      title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.',
-      date: 'Mei 08, 2023'
-    },
-    {
-      id: 'uuid3',
-      title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.',
-      date: 'Mei 08, 2023'
-    },
-    {
-      id: 'uuid4',
-      title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.',
-      date: 'Mei 08, 2023'
-    },
-    {
-      id: 'uuid5',
-      title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.',
-      date: 'Mei 08, 2023'
-    },
-    {
-      id: 'uuid6',
-      title: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.',
-      description:
-        'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus. Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam, voluptatibus.',
-      date: 'Mei 08, 2023'
-    }
-  ];
+  const [activeFilter, setActiveFilter] = useState<number | string | undefined>('');
+  const tags = useRecoilValue(tagsDataState);
+  const blogs = useRecoilValue(blogListDataState);
 
   return (
     <section id='blog-list'>
@@ -57,18 +17,16 @@ const BlogListSection = () => {
       <div className='container container-fit -mb-6'>
         <div className='flex justify-between'>
           <div className='flex items-center gap-5'>
-            <FilterItem
-              id='all'
-              title='All Blogs'
-              activeFilter={activeFilter}
-              onClick={() => setActiveFilter('all')}
-            />
-            <FilterItem
-              id='technology'
-              title='Technology'
-              activeFilter={activeFilter}
-              onClick={() => setActiveFilter('technology')}
-            />
+            <FilterItem id='' title='All' activeFilter={activeFilter} onClick={() => setActiveFilter('')} />
+            {tags?.map((item) => (
+              <FilterItem
+                key={item.id}
+                id={item.id}
+                title={item.name}
+                activeFilter={activeFilter}
+                onClick={() => setActiveFilter(item.id)}
+              />
+            ))}
           </div>
 
           {/* Search */}
@@ -95,7 +53,7 @@ const BlogListSection = () => {
       {/* Blog List Section */}
       <div className='container container-fit p-6'>
         <div className='bg-white p-6 rounded-3xl grid grid-cols-1 gap-16 md:grid-cols-2 md:p-8 lg:grid-cols-3 lg:p-14'>
-          {blogList.map((blog, index) => (
+          {blogs?.data?.map((blog, index) => (
             <BlogItem key={index} blog={blog} />
           ))}
         </div>

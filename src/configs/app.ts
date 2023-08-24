@@ -1,5 +1,5 @@
 export default class App {
-  static API_BASE_URL = 'http://localhost:8000/api/';
+  static API_BASE_URL = 'http://localhost:8000/';
 
   static HTTP_OK = 200;
 

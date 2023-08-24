@@ -3,9 +3,9 @@ import { useEffect, useState } from 'react';
 import Button from '../atoms/button';
 
 interface FilterItemProps {
-  id: string;
+  id: number | string | undefined;
   title: string;
-  activeFilter: string;
+  activeFilter: number | string | undefined;
   onClick?: () => void;
 }
 

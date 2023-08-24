@@ -1,14 +1,28 @@
-import Image from 'next/image';
+import { BlogModel } from '@/src/models/blog-model';
+import { blogDataState } from '@/src/recoils/blog-atom';
+import Image, { ImageLoader } from 'next/image';
+import moment from 'moment';
+import { useRecoilValue } from 'recoil';
+import App from '@/src/configs/app';
 
 const BlogDetailPage = () => {
+  const blog = useRecoilValue<BlogModel>(blogDataState);
+
+  // img loader
+  const myLoader: ImageLoader = () => {
+    const thumbnail = blog?.thumbnail;
+    if (thumbnail) {
+      const { id, file_name } = thumbnail;
+      return `${App.API_BASE_URL}storage/${id}/${file_name}`;
+    }
+    return '';
+  };
+
   return (
     <div className='container container-fit md:mb-10'>
       <div className='space-y-5 md:space-y-10 px-0 md:px-12 lg:px-24'>
         {/* Blog Title */}
-        <h1 className='font-bold text-xl md:text-2xl lg:4xl'>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur asperiores sunt nobis praesentium,
-          commodi maiores.
-        </h1>
+        <h1 className='font-bold text-xl md:text-2xl lg:4xl'>{blog?.title}</h1>
 
         {/* Blog Author & Date */}
         <div className='flex items-center gap-5'>
@@ -16,7 +30,7 @@ const BlogDetailPage = () => {
             <div className='p-1 bg-[#C5ECFD] rounded-full'>
               <Image src='/assets/images/memoji.png' className='h-9' width={36} height={36} alt='testimony-user' />
             </div>
-            <h4 className='font-bold text-dark-blue'>Anang</h4>
+            <h4 className='font-bold text-dark-blue'>{blog?.author?.name}</h4>
           </div>
           <div className='flex items-center space-x-1'>
             <svg className='h-5 w-5 text-[#828282]' fill='none' viewBox='0 0 24 24' stroke='currentColor'>
@@ -33,7 +47,9 @@ const BlogDetailPage = () => {
                 d='M16 2V6M8 2V6M3 10h18M3 14h18M3 18h18'
               />
             </svg>
-            <p className='align-middle text-[#828282] font-light text-sm md:text-base'>08 May 2022</p>
+            <p className='align-middle text-[#828282] font-light text-sm md:text-base'>
+              {moment(blog.published_at).format('DD MMM YYYY')}
+            </p>
           </div>
         </div>
 
@@ -42,8 +58,12 @@ const BlogDetailPage = () => {
           {/* Image */}
           <div className='flex justify-center'>
             <Image
-              src='/assets/images/temp/blog2.png'
-              // layout='fill'
+              loader={myLoader}
+              src={
+                blog?.thumbnail?.file_name
+                  ? `${App.API_BASE_URL}storage/${blog?.thumbnail?.id}/${blog?.thumbnail?.file_name}`
+                  : '/assets/images/temp/blog2.png'
+              }
               width={500}
               height={500}
               className='rounded-xl w-full md:w-2/3'
@@ -53,28 +73,7 @@ const BlogDetailPage = () => {
 
           {/* Content */}
           <div className='space-y-5'>
-            <p className='tracking-wide text-sm md:text-base'>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur eius incidunt hic magni obcaecati
-              aperiam non reprehenderit facilis fuga itaque eligendi officiis dolorem provident consequuntur
-              suscipit numquam reiciendis, et laudantium sunt earum molestias ratione unde. Officia incidunt velit
-              dolore eius numquam consequatur! Consectetur fugiat tempore enim omnis nesciunt minima, distinctio
-              atque autem voluptates suscipit? Perferendis voluptatem, assumenda placeat quia, sit vitae porro fuga
-              asperiores modi, quidem sed! Consectetur nesciunt facilis sunt. Impedit tempora, nostrum excepturi
-              laudantium fugiat temporibus? Ad, molestiae ducimus quia dolor ut eius voluptas nulla maxime
-              assumenda reiciendis corrupti ratione aliquam sapiente ab necessitatibus! Officiis animi explicabo
-              error.
-            </p>
-            <p className='tracking-wide text-sm md:text-base'>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur eius incidunt hic magni obcaecati
-              aperiam non reprehenderit facilis fuga itaque eligendi officiis dolorem provident consequuntur
-              suscipit numquam reiciendis, et laudantium sunt earum molestias ratione unde. Officia incidunt velit
-              dolore eius numquam consequatur! Consectetur fugiat tempore enim omnis nesciunt minima, distinctio
-              atque autem voluptates suscipit? Perferendis voluptatem, assumenda placeat quia, sit vitae porro fuga
-              asperiores modi, quidem sed! Consectetur nesciunt facilis sunt. Impedit tempora, nostrum excepturi
-              laudantium fugiat temporibus? Ad, molestiae ducimus quia dolor ut eius voluptas nulla maxime
-              assumenda reiciendis corrupti ratione aliquam sapiente ab necessitatibus! Officiis animi explicabo
-              error.
-            </p>
+            <div className='font-medium text-[#727272]' dangerouslySetInnerHTML={{ __html: blog?.content }} />
           </div>
         </div>
       </div>

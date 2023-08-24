@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import HomePage from '@/src/components/pages/home-page';
 import MainTemplate from '@/src/components/templates/main-template';
 import ServiceModel from '@/src/models/service-model';
@@ -9,6 +10,7 @@ import { testimoniesDataState } from '@/src/recoils/testimony-atom';
 import ServiceRepository from '@/src/repositories/service-repository';
 import SettingRepository from '@/src/repositories/setting-repository';
 import TestimonyRepository from '@/src/repositories/testimony-repository';
+import { useEffect } from 'react';
 import { useRecoilState, useSetRecoilState } from 'recoil';
 
 interface HomeProps {
@@ -18,23 +20,26 @@ interface HomeProps {
 }
 
 export default function Home(props: HomeProps) {
-  // set services data to state
   const setServices = useSetRecoilState<ServiceModel[]>(servicesDataState);
-  if (props.services.length > 0) {
-    setServices(props.services);
-  }
-
-  // set testimonies data to state
   const setTestimonies = useSetRecoilState<TestimonyModel[]>(testimoniesDataState);
-  if (props.testimonies.length > 0) {
-    setTestimonies(props.testimonies);
-  }
-
-  // set settings data to state
   const setSettings = useSetRecoilState<SettingModel>(settingsDataState);
-  if (props.settings) {
-    setSettings(props.settings);
-  }
+
+  useEffect(() => {
+    // set services data to state
+    if (props.services.length > 0) {
+      setServices(props.services);
+    }
+
+    // set testimonies data to state
+    if (props.testimonies.length > 0) {
+      setTestimonies(props.testimonies);
+    }
+
+    // set settings data to state
+    if (props.settings) {
+      setSettings(props.settings);
+    }
+  }, [props.services, props.testimonies, props.settings]);
 
   return (
     <MainTemplate>

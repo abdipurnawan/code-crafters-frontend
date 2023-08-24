@@ -8,7 +8,7 @@ type ApiParams = {
 
 function Api(params?: ApiParams) {
   const api = axios.create({
-    baseURL: `${params?.activeUrl ? '' : AppConfig.API_BASE_URL}`,
+    baseURL: `${params?.activeUrl ? '' : AppConfig.API_BASE_URL + 'api/'}`,
     headers: {
       'Content-Type': params?.isMultipart ? 'multipart/form-data' : 'application/json',
       Accept: 'application/json'
