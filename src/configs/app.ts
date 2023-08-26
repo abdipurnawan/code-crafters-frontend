@@ -1,5 +1,6 @@
+import 'dotenv/config';
 export default class App {
-  static API_BASE_URL = 'http://localhost:8000/';
+  static API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
   static HTTP_OK = 200;
 
