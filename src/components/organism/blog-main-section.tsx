@@ -33,30 +33,28 @@ const BlogMainSection = () => {
           </div>
 
           {/* Image */}
-          <img
-            className='object-cover w-full h-64 md:w-1/2 md:h-auto md:rounded-3xl'
-            src={
-              lastestBlog?.thumbnail?.file_name
-                ? `${App.API_BASE_URL}storage/${lastestBlog?.thumbnail?.id}/${lastestBlog?.thumbnail?.file_name}`
-                : '/assets/images/temp/blog2.png'
-            }
-            alt='blog-thumbnail'
-          />
-          {/* <Image
-            loader={myLoader}
-            src={
-              lastestBlog?.thumbnail?.file_name
-                ? `${App.API_BASE_URL}storage/${lastestBlog?.thumbnail?.id}/${lastestBlog?.thumbnail?.file_name}`
-                : '/assets/images/temp/blog2.png'
-            }
-            width={500}
-            height={500}
-            style={{
-              objectFit: 'cover'
-            }}
-            sizes='(max-width: 768px) 3000px, 5750px'
-            alt='blog-thumbnail'
-          /> */}
+          <div className='aspect-video md:w-[45%]'>
+            <img
+              className='object-cover w-full h-full md:rounded-3xl'
+              src={
+                lastestBlog?.thumbnail?.file_name
+                  ? `${App.API_BASE_URL}storage/${lastestBlog?.thumbnail?.id}/${lastestBlog?.thumbnail?.file_name}`
+                  : '/assets/images/temp/blog2.png'
+              }
+              alt='blog-thumbnail'
+            />
+          </div>
+          {/* <div className='max-w-1/2 relative' style={{ paddingBottom: '56.25%' }}>
+            <img
+              className='absolute inset-0 object-cover w-full h-full md:rounded-3xl'
+              src={
+                lastestBlog?.thumbnail?.file_name
+                  ? `${App.API_BASE_URL}storage/${lastestBlog?.thumbnail?.id}/${lastestBlog?.thumbnail?.file_name}`
+                  : '/assets/images/temp/blog2.png'
+              }
+              alt='blog-thumbnail'
+            />
+          </div> */}
         </div>
       </Link>
     </div>

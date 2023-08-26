@@ -51,7 +51,13 @@ const NavbarSection = () => {
         <MobileNavItem url='/' title='Home' />
         <MobileNavItem url='/services' title='Services' />
         <MobileNavItem url='/blogs' title='Blogs' />
-        <MobileNavItem url='/call-us' title='Hubungi Kami' />
+        <MobileNavItem
+          url='/call-us'
+          title='Hubungi Kami'
+          onClick={() => {
+            window.open('https://wa.me/6283119030893', '_blank');
+          }}
+        />
       </div>
     </nav>
   );
