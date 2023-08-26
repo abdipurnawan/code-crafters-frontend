@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+import App from '@/src/configs/app';
 import TestimonyModel from '@/src/models/testimony-model';
 import Image from 'next/image';
 
@@ -17,8 +19,14 @@ const TestimonyItem = (props: TestimonyItemProps) => {
       </div>
 
       <div className='flex items-center space-x-3'>
-        <div className='p-1 bg-[#C5ECFD] rounded-full'>
-          <Image src='/assets/images/memoji.png' className='h-9' width={36} height={36} alt='testimony-user' />
+        <div className={`${!item.image ? 'p-1' : ''} bg-[#C5ECFD] rounded-full`}>
+          <img
+            src={item.image ? `${App.API_BASE_URL}storage/${item.image}` : '/assets/images/memoji.png'}
+            className='h-9 rounded-full'
+            width={36}
+            height={36}
+            alt='testimony-user'
+          />
         </div>
         <h4 className='font-bold text-dark-blue'>{item.name}</h4>
       </div>
