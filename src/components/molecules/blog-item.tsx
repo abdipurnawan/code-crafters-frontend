@@ -45,4 +45,17 @@ const BlogItem = (props: BlogItemProps) => {
   );
 };
 
+export const BlogItemSkeleton = () => {
+  return (
+    <div>
+      <div className='h-24 md:h-48 2xl:h-56 rounded-xl bg-slate-200 animate-pulse'></div>
+      <div>
+        <div className='h-6 w-32 bg-slate-200 rounded-lg mt-3'></div>
+        <div className='h-6 w-48 bg-slate-200 rounded-lg mt-2 '></div>
+        <div className='h-20 bg-slate-200 rounded-lg mt-2'></div>
+      </div>
+    </div>
+  );
+};
+
 export default BlogItem;

@@ -6,6 +6,13 @@ import { PaginationModel } from '../models/pagination-model';
 import ResponseModel from '../models/response-model';
 import ServiceModel from '../models/service-model';
 
+interface GetBlogParams {
+  active_url?: string | null;
+  tag_id?: string | number | undefined;
+  search?: string;
+  per_page?: number;
+}
+
 export default class BlogRepository {
   async getLastestBlog(): Promise<ResponseModel<BlogModel>> {
     try {
@@ -21,9 +28,14 @@ export default class BlogRepository {
     }
   }
 
-  async getBlogs(): Promise<ResponseModel<PaginationModel<ServiceModel[]>>> {
+  async getBlogs(params: GetBlogParams): Promise<ResponseModel<PaginationModel<ServiceModel[]>>> {
     try {
-      const response = await api().get('blogs');
+      const response = await api({ activeUrl: params.active_url }).get(params.active_url ?? 'blogs', {
+        params: {
+          tag_id: params?.tag_id,
+          search: params?.search
+        }
+      });
 
       if (response.status === AppConfig.HTTP_OK) {
         return response.data;

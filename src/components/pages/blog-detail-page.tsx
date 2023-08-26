@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { BlogModel } from '@/src/models/blog-model';
 import { blogDataState } from '@/src/recoils/blog-atom';
 import Image, { ImageLoader } from 'next/image';
@@ -9,14 +10,14 @@ const BlogDetailPage = () => {
   const blog = useRecoilValue<BlogModel>(blogDataState);
 
   // img loader
-  const myLoader: ImageLoader = () => {
-    const thumbnail = blog?.thumbnail;
-    if (thumbnail) {
-      const { id, file_name } = thumbnail;
-      return `${App.API_BASE_URL}storage/${id}/${file_name}`;
-    }
-    return '';
-  };
+  // const myLoader: ImageLoader = () => {
+  //   const thumbnail = blog?.thumbnail;
+  //   if (thumbnail) {
+  //     const { id, file_name } = thumbnail;
+  //     return `${App.API_BASE_URL}storage/${id}/${file_name}`;
+  //   }
+  //   return '';
+  // };
 
   return (
     <div className='container container-fit md:mb-10'>
@@ -57,8 +58,7 @@ const BlogDetailPage = () => {
         <div className='flex flex-col gap-5 md:gap-10'>
           {/* Image */}
           <div className='flex justify-center'>
-            <Image
-              loader={myLoader}
+            <img
               src={
                 blog?.thumbnail?.file_name
                   ? `${App.API_BASE_URL}storage/${blog?.thumbnail?.id}/${blog?.thumbnail?.file_name}`

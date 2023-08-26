@@ -58,7 +58,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const tagsData = await tagRepository.getTags();
 
   // get blogs
-  const blogsData = await blogRepository.getBlogs();
+  const blogsData = await blogRepository.getBlogs({});
 
   return {
     props: {
