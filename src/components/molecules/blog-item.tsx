@@ -3,6 +3,7 @@ import { BlogModel } from '@/src/models/blog-model';
 import moment from 'moment';
 import Image, { ImageLoader } from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 interface BlogItemProps {
   blog: BlogModel;
@@ -10,6 +11,8 @@ interface BlogItemProps {
 
 const BlogItem = (props: BlogItemProps) => {
   const { blog } = props;
+
+  const router = useRouter();
 
   const myLoader: ImageLoader = () => {
     const thumbnail = blog?.thumbnail;
@@ -21,7 +24,7 @@ const BlogItem = (props: BlogItemProps) => {
   };
 
   return (
-    <a href={`/blogs/${blog.slug}`} className='cursor-pointer'>
+    <div onClick={() => router.push(`/blogs/${blog.slug}`)} className='cursor-pointer'>
       <div className='relative w-full pb-[56.25%]'>
         <Image
           loader={myLoader}
@@ -41,7 +44,7 @@ const BlogItem = (props: BlogItemProps) => {
       </p>
       <h1 className='font-bold py-2 text-lg md:text-xl'>{blog.title}</h1>
       <div className='text-[#6C6C6C] tracking-wide text-sm' dangerouslySetInnerHTML={{ __html: blog?.content }} />
-    </a>
+    </div>
   );
 };
 
