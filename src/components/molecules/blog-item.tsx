@@ -21,7 +21,7 @@ const BlogItem = (props: BlogItemProps) => {
   };
 
   return (
-    <Link href={`/blogs/${blog.slug}`} className='cursor-pointer'>
+    <a href={`/blogs/${blog.slug}`} className='cursor-pointer'>
       <div className='relative w-full pb-[56.25%]'>
         <Image
           loader={myLoader}
@@ -41,7 +41,7 @@ const BlogItem = (props: BlogItemProps) => {
       </p>
       <h1 className='font-bold py-2 text-lg md:text-xl'>{blog.title}</h1>
       <div className='text-[#6C6C6C] tracking-wide text-sm' dangerouslySetInnerHTML={{ __html: blog?.content }} />
-    </Link>
+    </a>
   );
 };
 

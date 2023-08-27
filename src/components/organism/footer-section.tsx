@@ -28,9 +28,11 @@ const FooterSection = () => {
                   Diskusikan ide bisnismu, kami akan mengubahnya menjadi aplikasi.
                 </p>
 
-                <p className='gradient text-transparent bg-clip-text font-semibold text-sm leading-6'>
+                <a
+                  href={`mailto:${settings.site_email ?? 'sales@codecrafters.id'}`}
+                  className='gradient text-transparent bg-clip-text font-semibold text-sm leading-6'>
                   {settings.site_email ?? 'sales@codecrafters.id'}
-                </p>
+                </a>
               </div>
 
               {/* Page */}
