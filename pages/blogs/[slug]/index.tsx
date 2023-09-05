@@ -6,14 +6,14 @@ import { blogDataState } from '@/src/recoils/blog-atom';
 import BlogRepository from '@/src/repositories/blog-repository';
 import { GetServerSidePropsContext } from 'next';
 import { useEffect } from 'react';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState, useSetRecoilState } from 'recoil';
 
 interface BlogDetailProps {
   blog: BlogModel;
 }
 
 export default function BlogDetail(props: BlogDetailProps) {
-  const setBlog = useSetRecoilState<BlogModel>(blogDataState);
+  const [blog, setBlog] = useRecoilState<BlogModel>(blogDataState);
 
   useEffect(() => {
     // set blog data to state
@@ -23,7 +23,7 @@ export default function BlogDetail(props: BlogDetailProps) {
   }, [props.blog]);
 
   return (
-    <MainTemplate>
+    <MainTemplate title={blog.title} description={blog.description}>
       <BlogDetailPage />
     </MainTemplate>
   );

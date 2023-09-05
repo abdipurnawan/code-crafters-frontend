@@ -8,17 +8,18 @@ import { settingsDataState } from '@/src/recoils/setting-atom';
 
 interface MainTemplateProps {
   title?: string;
+  description?: string;
   children: React.ReactNode;
 }
 
-const MainTemplate = ({ title, children }: MainTemplateProps) => {
+const MainTemplate = ({ title, description, children }: MainTemplateProps) => {
   const settings = useRecoilValue<SettingModel>(settingsDataState);
 
   return (
     <>
       <Head>
         <title>{title ?? `${settings.site_name ?? 'CodeCrafters'} - Crafting Innovation Through Code`}</title>
-        <meta name='description' content={settings.site_description} />
+        <meta name='description' content={description ?? settings.site_description} />
       </Head>
 
       <NavbarSection />
