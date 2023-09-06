@@ -15,7 +15,7 @@ const HeroSection = () => {
             {settings.site_name ?? 'CodeCrafters'}
           </h2>
 
-          <h1 className='italic font-bold text-3xl md:text-4xl lg:text-5xl'>
+          <h1 className='italic font-bold text-3xl md:text-4xl lg:text-5xl !leading-[4rem]'>
             Crafting Innovation <br />
             Through Code
           </h1>

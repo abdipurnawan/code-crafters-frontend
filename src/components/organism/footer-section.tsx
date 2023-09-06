@@ -8,7 +8,7 @@ const FooterSection = () => {
 
   return (
     <section id='footer'>
-      <div className='container container-fit p-6 overflow-hidden'>
+      <div className='container mx-auto pt-6 px-6 lg:pb-6 max-w-[1280px] 2xl:max-w-[1440px] overflow-hidden'>
         <div className='relative lg:-bottom-14'>
           <div className='relative w-full rounded-t-3xl bg-white overflow-hidden px-10 py-10 z-10 md:px-16 md:py-16 lg:py-16 lg:px-28'>
             <div className='grid grid-cols-1 md:grid-cols-3 gap-10 md:gap-14 lg:gap-20'>
