@@ -1,4 +1,5 @@
 import App from '@/src/configs/app';
+import { useHtmlTrim } from '@/src/hooks/useHtmlTrim';
 import { BlogModel } from '@/src/models/blog-model';
 import moment from 'moment';
 import Image, { ImageLoader } from 'next/image';
@@ -11,7 +12,6 @@ interface BlogItemProps {
 
 const BlogItem = (props: BlogItemProps) => {
   const { blog } = props;
-
   const router = useRouter();
 
   const myLoader: ImageLoader = () => {
@@ -22,6 +22,8 @@ const BlogItem = (props: BlogItemProps) => {
     }
     return '';
   };
+
+  const blogContent = useHtmlTrim((blog?.content as string) ?? '');
 
   return (
     <div onClick={() => router.push(`/blogs/${blog.slug}`)} className='cursor-pointer'>
@@ -43,7 +45,7 @@ const BlogItem = (props: BlogItemProps) => {
         {moment(blog.published_at).format('DD MMM YYYY')}
       </p>
       <h1 className='font-bold py-2 text-lg md:text-xl'>{blog.title}</h1>
-      <div className='text-[#6C6C6C] tracking-wide text-sm' dangerouslySetInnerHTML={{ __html: blog?.content }} />
+      <div className='text-[#6C6C6C] tracking-wide text-sm' dangerouslySetInnerHTML={{ __html: blogContent }} />
     </div>
   );
 };

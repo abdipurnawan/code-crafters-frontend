@@ -5,19 +5,12 @@ import Image, { ImageLoader } from 'next/image';
 import moment from 'moment';
 import { useRecoilValue } from 'recoil';
 import App from '@/src/configs/app';
+import useReplaceImgSrc from '@/src/hooks/useReplaceImgSrc';
 
 const BlogDetailPage = () => {
   const blog = useRecoilValue<BlogModel>(blogDataState);
 
-  // img loader
-  // const myLoader: ImageLoader = () => {
-  //   const thumbnail = blog?.thumbnail;
-  //   if (thumbnail) {
-  //     const { id, file_name } = thumbnail;
-  //     return `${App.API_BASE_URL}storage/${id}/${file_name}`;
-  //   }
-  //   return '';
-  // };
+  const blogContent = useReplaceImgSrc((blog?.content as string) ?? '');
 
   return (
     <div className='container container-fit md:mb-10'>
@@ -73,7 +66,7 @@ const BlogDetailPage = () => {
 
           {/* Content */}
           <div className='space-y-5'>
-            <div className='font-medium text-[#727272]' dangerouslySetInnerHTML={{ __html: blog?.content }} />
+            <div className='font-medium text-[#727272]' dangerouslySetInnerHTML={{ __html: blogContent }} />
           </div>
         </div>
       </div>

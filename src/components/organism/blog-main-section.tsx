@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import App from '@/src/configs/app';
+import { useHtmlTrim } from '@/src/hooks/useHtmlTrim';
 import { lastestBlogDataState } from '@/src/recoils/lastest-blog-atom';
 import Image, { ImageLoader } from 'next/image';
 import Link from 'next/link';
@@ -9,14 +10,17 @@ const BlogMainSection = () => {
   const lastestBlog = useRecoilValue(lastestBlogDataState);
 
   // img loader
-  const myLoader: ImageLoader = () => {
-    const thumbnail = lastestBlog?.thumbnail;
-    if (thumbnail) {
-      const { id, file_name } = thumbnail;
-      return `${App.API_BASE_URL}storage/${id}/${file_name}`;
-    }
-    return '';
-  };
+  // const myLoader: ImageLoader = () => {
+  //   const thumbnail = lastestBlog?.thumbnail;
+  //   if (thumbnail) {
+  //     const { id, file_name } = thumbnail;
+  //     return `${App.API_BASE_URL}storage/${id}/${file_name}`;
+  //   }
+  //   return '';
+  // };
+
+  // blog content
+  const blogContent = useHtmlTrim((lastestBlog?.content as string) ?? '');
 
   return (
     <div className='container container-fit p-6'>
@@ -26,10 +30,7 @@ const BlogMainSection = () => {
           {/* Title and Desc */}
           <div className='mt-4 space-y-2 md:mt-0 md:space-y-5 md:mb-4'>
             <h1 className='font-bold text-2xl md:text-3xl lg:text-4xl leading-normal'>{lastestBlog?.title}</h1>
-            <div
-              className='font-medium text-[#727272]'
-              dangerouslySetInnerHTML={{ __html: lastestBlog?.content }}
-            />
+            <div className='font-medium text-[#727272]' dangerouslySetInnerHTML={{ __html: blogContent }} />
           </div>
 
           {/* Image */}
