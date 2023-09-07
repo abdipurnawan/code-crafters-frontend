@@ -20,7 +20,7 @@ const BlogItem = (props: BlogItemProps) => {
       const { id, file_name } = thumbnail;
       return `${App.API_BASE_URL}storage/${id}/${file_name}`;
     }
-    return '';
+    return '/assets/images/temp/blog2.png';
   };
 
   const blogContent = useHtmlTrim((blog?.content as string) ?? '');

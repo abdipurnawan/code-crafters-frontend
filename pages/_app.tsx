@@ -24,10 +24,10 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <RecoilRoot>
       <QueryClientProvider client={queryClient}>
-        <ReactQueryDevtools />
         <main className={clsx(poppins.className, 'bg-nav-pattern bg-no-repeat')}>
           <Component {...pageProps} />
         </main>
+        <ReactQueryDevtools />
       </QueryClientProvider>
     </RecoilRoot>
   );

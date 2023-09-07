@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element */
 import App from '@/src/configs/app';
 import { useHtmlTrim } from '@/src/hooks/useHtmlTrim';
+import useScreenSize from '@/src/hooks/useScreenSize';
 import { lastestBlogDataState } from '@/src/recoils/lastest-blog-atom';
 import Image, { ImageLoader } from 'next/image';
 import Link from 'next/link';
@@ -8,33 +9,35 @@ import { useRecoilValue } from 'recoil';
 
 const BlogMainSection = () => {
   const lastestBlog = useRecoilValue(lastestBlogDataState);
+  const { screenWidth } = useScreenSize();
 
-  // img loader
-  // const myLoader: ImageLoader = () => {
-  //   const thumbnail = lastestBlog?.thumbnail;
-  //   if (thumbnail) {
-  //     const { id, file_name } = thumbnail;
-  //     return `${App.API_BASE_URL}storage/${id}/${file_name}`;
-  //   }
-  //   return '';
-  // };
+  let maxTitleLength = 75;
+  if (screenWidth >= 768) {
+    maxTitleLength = 150;
+  }
+
+  if (screenWidth >= 1024) {
+    maxTitleLength = 200;
+  }
+
+  if (screenWidth >= 1280) {
+    maxTitleLength = 300;
+  }
+
+  if (screenWidth >= 1536) {
+    maxTitleLength = 400;
+  }
 
   // blog content
-  const blogContent = useHtmlTrim((lastestBlog?.content as string) ?? '');
+  const blogContent = useHtmlTrim((lastestBlog?.content as string) ?? '', maxTitleLength);
 
   return (
     <div className='container container-fit p-6'>
       <Link href={`/blogs/${lastestBlog.slug}`}>
         {/* Single Blog */}
-        <div className='flex flex-col-reverse md:items-end md:justify-between md:flex-row md:space-x-10 cursor-pointer'>
-          {/* Title and Desc */}
-          <div className='mt-4 space-y-2 md:mt-0 md:space-y-5 md:mb-4'>
-            <h1 className='font-bold text-2xl md:text-3xl lg:text-4xl leading-normal'>{lastestBlog?.title}</h1>
-            <div className='font-medium text-[#727272]' dangerouslySetInnerHTML={{ __html: blogContent }} />
-          </div>
-
+        <div className='grid md:grid-cols-2 lg:grid-cols-3 md:gap-10 cursor-pointer'>
           {/* Image */}
-          <div className='aspect-video md:w-[45%]'>
+          <div className='aspect-video w-full md:order-last'>
             <img
               className='object-cover w-full h-full md:rounded-3xl'
               src={
@@ -45,6 +48,13 @@ const BlogMainSection = () => {
               alt='blog-thumbnail'
             />
           </div>
+
+          {/* Title and Desc */}
+          <div className='lg:col-span-2 mt-4 space-y-2 md:mt-0  md:mb-4'>
+            <h1 className='font-bold text-2xl md:text-3xl lg:text-4xl leading-normal'>{lastestBlog?.title}</h1>
+            <div className='font-medium text-[#727272]' dangerouslySetInnerHTML={{ __html: blogContent }} />
+          </div>
+
           {/* <div className='max-w-1/2 relative' style={{ paddingBottom: '56.25%' }}>
             <img
               className='absolute inset-0 object-cover w-full h-full md:rounded-3xl'
