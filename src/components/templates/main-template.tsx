@@ -26,6 +26,18 @@ const MainTemplate = ({ title, description, image, children }: MainTemplateProps
         <meta property='og:title' content={title ?? settings.site_name} />
         <meta property='og:description' content={description ?? settings.site_description} />
         <meta property='og:image' content={image ?? `${baseUrl}favicon.ico`} />
+
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${settings.ga_tracking_id}`}></script>
+        <script>
+          {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${settings.ga_tracking_id}', {
+          page_path: window.location.pathname,
+          });
+        `}
+        </script>
       </Head>
 
       <NavbarSection />

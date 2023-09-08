@@ -1,7 +1,7 @@
 import '@/styles/globals.css';
 import '../styles/nprogress.css';
 import type { AppProps } from 'next/app';
-import { RecoilRoot } from 'recoil';
+import { RecoilRoot, useRecoilValue } from 'recoil';
 import { Poppins } from 'next/font/google';
 import clsx from 'clsx';
 import nProgress from 'nprogress';
@@ -22,13 +22,15 @@ export default function App({ Component, pageProps }: AppProps) {
   router.events.on('routeChangeError', () => nProgress.done());
 
   return (
-    <RecoilRoot>
-      <QueryClientProvider client={queryClient}>
-        <main className={clsx(poppins.className, 'bg-nav-pattern bg-no-repeat')}>
-          <Component {...pageProps} />
-        </main>
-        <ReactQueryDevtools />
-      </QueryClientProvider>
-    </RecoilRoot>
+    <>
+      <RecoilRoot>
+        <QueryClientProvider client={queryClient}>
+          <main className={clsx(poppins.className, 'bg-nav-pattern bg-no-repeat')}>
+            <Component {...pageProps} />
+          </main>
+          <ReactQueryDevtools />
+        </QueryClientProvider>
+      </RecoilRoot>
+    </>
   );
 }
