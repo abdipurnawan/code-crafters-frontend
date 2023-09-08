@@ -1,0 +1,13 @@
+# *
+User-agent: *
+Disallow: /404
+
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://codecrafters.id/
+
+# Sitemaps
+Sitemap: https://codecrafters.id/sitemap.xml

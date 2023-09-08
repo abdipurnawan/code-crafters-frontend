@@ -28,12 +28,32 @@ export default class BlogRepository {
     }
   }
 
-  async getBlogs(params: GetBlogParams): Promise<ResponseModel<PaginationModel<ServiceModel[]>>> {
+  async getBlogs(params: GetBlogParams): Promise<ResponseModel<BlogModel[]>> {
+    try {
+      const response = await api().get('blogs', {
+        params: {
+          tag_id: params?.tag_id,
+          search: params?.search
+        }
+      });
+
+      if (response.status === AppConfig.HTTP_OK) {
+        return response.data;
+      }
+
+      throw ApiErrorHandler.notResponse200Handler(response);
+    } catch (error) {
+      throw ApiErrorHandler.errorHandler(error);
+    }
+  }
+
+  async getBlogsWithPagination(params: GetBlogParams): Promise<ResponseModel<PaginationModel<BlogModel[]>>> {
     try {
       const response = await api({ activeUrl: params.active_url }).get(params.active_url ?? 'blogs', {
         params: {
           tag_id: params?.tag_id,
-          search: params?.search
+          search: params?.search,
+          is_paginated: true
         }
       });
 
