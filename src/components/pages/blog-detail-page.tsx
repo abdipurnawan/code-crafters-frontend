@@ -66,7 +66,10 @@ const BlogDetailPage = () => {
 
           {/* Content */}
           <div className='space-y-5'>
-            <div className='font-medium text-[#727272]' dangerouslySetInnerHTML={{ __html: blogContent }} />
+            <div
+              className='prose prose-p:m-0 prose-headings:my-5 max-w-none'
+              dangerouslySetInnerHTML={{ __html: blogContent }}
+            />
           </div>
         </div>
       </div>
