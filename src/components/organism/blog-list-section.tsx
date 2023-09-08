@@ -24,7 +24,7 @@ const BlogListSection = () => {
   // blogs query
   const blogRepository = new BlogRepository();
   const fetchBlogs = async () => {
-    const data = await blogRepository.getBlogs({
+    const data = await blogRepository.getBlogsWithPagination({
       tag_id: activeTag,
       search: search,
       active_url: activeUrl

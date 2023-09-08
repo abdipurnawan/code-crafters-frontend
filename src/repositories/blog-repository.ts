@@ -53,7 +53,7 @@ export default class BlogRepository {
         params: {
           tag_id: params?.tag_id,
           search: params?.search,
-          is_paginated: true
+          is_paginated: 1
         }
       });
 

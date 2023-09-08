@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import BlogDetailPage from '@/src/components/pages/blog-detail-page';
 import MainTemplate from '@/src/components/templates/main-template';
+import App from '@/src/configs/app';
 import { BlogModel } from '@/src/models/blog-model';
 import { blogDataState } from '@/src/recoils/blog-atom';
 import BlogRepository from '@/src/repositories/blog-repository';
@@ -22,8 +23,11 @@ export default function BlogDetail(props: BlogDetailProps) {
     }
   }, [props.blog]);
 
+  // blog thumbnail
+  const thumbnail = `${App.API_BASE_URL}storage/${blog?.thumbnail?.id}/${blog?.thumbnail?.file_name}`;
+
   return (
-    <MainTemplate title={blog.title} description={blog.description}>
+    <MainTemplate title={blog.title} description={blog.description} image={thumbnail}>
       <BlogDetailPage />
     </MainTemplate>
   );
