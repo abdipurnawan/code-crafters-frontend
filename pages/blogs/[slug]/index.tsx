@@ -14,21 +14,12 @@ interface BlogDetailProps {
 }
 
 export default function BlogDetail(props: BlogDetailProps) {
-  const [blog, setBlog] = useRecoilState<BlogModel>(blogDataState);
-
-  useEffect(() => {
-    // set blog data to state
-    if (props.blog) {
-      setBlog(props.blog);
-    }
-  }, [props.blog]);
-
   // blog thumbnail
-  const thumbnail = `${App.API_BASE_URL}storage/${blog?.thumbnail?.id}/${blog?.thumbnail?.file_name}`;
+  const thumbnail = `${App.API_BASE_URL}storage/${props.blog?.thumbnail?.id}/${props.blog?.thumbnail?.file_name}`;
 
   return (
-    <MainTemplate title={blog.title} description={blog.description} image={thumbnail}>
-      <BlogDetailPage />
+    <MainTemplate title={props.blog.title} description={props.blog.description} image={thumbnail}>
+      <BlogDetailPage blog={props.blog} />
     </MainTemplate>
   );
 }

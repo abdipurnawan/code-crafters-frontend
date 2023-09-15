@@ -7,8 +7,12 @@ import { useRecoilValue } from 'recoil';
 import App from '@/src/configs/app';
 import useReplaceImgSrc from '@/src/hooks/useReplaceImgSrc';
 
-const BlogDetailPage = () => {
-  const blog = useRecoilValue<BlogModel>(blogDataState);
+interface BlogDetailPageProps {
+  blog: BlogModel;
+}
+
+const BlogDetailPage = ({ blog }: BlogDetailPageProps) => {
+  // const blog = useRecoilValue<BlogModel>(blogDataState);
 
   const blogContent = useReplaceImgSrc((blog?.content as string) ?? '');
 
