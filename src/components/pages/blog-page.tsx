@@ -1,16 +1,23 @@
-import { useState } from 'react';
 import BlogListSection from '../organism/blog-list-section';
 import BlogMainSection from '../organism/blog-main-section';
+import { BlogModel } from '@/src/models/blog-model';
+import TagModel from '@/src/models/tag-model';
+import { PaginationModel } from '@/src/models/pagination-model';
 
-const BlogPage = () => {
-  const [activeFilter, setActiveFilter] = useState('all');
+interface BlogPageProps {
+  lastestBlog: BlogModel;
+  tags: TagModel[];
+  blogs: PaginationModel<BlogModel[]>;
+}
+
+const BlogPage = ({ lastestBlog, tags, blogs }: BlogPageProps) => {
   return (
     <>
       {/* Main Blog Section */}
-      <BlogMainSection />
+      <BlogMainSection lastestBlog={lastestBlog} />
 
       {/* Blog List Section */}
-      <BlogListSection />
+      <BlogListSection blogs={blogs} tags={tags} />
     </>
   );
 };

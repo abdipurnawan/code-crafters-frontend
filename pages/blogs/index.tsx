@@ -43,7 +43,7 @@ export default function Blog(props: BlogProps) {
 
   return (
     <MainTemplate>
-      <BlogPage />
+      <BlogPage lastestBlog={props.lastestBlog} blogs={props.blogs} tags={props.tags} />
     </MainTemplate>
   );
 }

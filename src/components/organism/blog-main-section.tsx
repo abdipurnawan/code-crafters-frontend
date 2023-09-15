@@ -2,13 +2,18 @@
 import App from '@/src/configs/app';
 import { useHtmlTrim } from '@/src/hooks/useHtmlTrim';
 import useScreenSize from '@/src/hooks/useScreenSize';
+import { BlogModel } from '@/src/models/blog-model';
 import { lastestBlogDataState } from '@/src/recoils/lastest-blog-atom';
 import Image, { ImageLoader } from 'next/image';
 import Link from 'next/link';
 import { useRecoilValue } from 'recoil';
 
-const BlogMainSection = () => {
-  const lastestBlog = useRecoilValue(lastestBlogDataState);
+interface BlogMainSectionProps {
+  lastestBlog: BlogModel;
+}
+
+const BlogMainSection = ({ lastestBlog }: BlogMainSectionProps) => {
+  // const lastestBlog = useRecoilValue(lastestBlogDataState);
   const { screenWidth } = useScreenSize();
 
   let maxTitleLength = 75;
