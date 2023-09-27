@@ -25,7 +25,7 @@ const MainTemplate = ({ title, description, image, children }: MainTemplateProps
 
         <meta property='og:title' content={title ?? settings.site_name} />
         <meta property='og:description' content={description ?? settings.site_description} />
-        <meta property='og:image' content={image ?? `${baseUrl}assets/images/logo-og.png`} />
+        <meta property='og:image' content={image ?? `${baseUrl}assets/images/new-og.png`} />
 
         <script async src={`https://www.googletagmanager.com/gtag/js?id=${settings.ga_tracking_id}`}></script>
         <script>
